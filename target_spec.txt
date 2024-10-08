@@ -1,0 +1,10 @@
+Target only formats 2,3,10,11:
+    2 uncompressed true-color image
+    3 uncompressed grayscale image
+    10 run-length encoded true-color image
+    11 run-length encoded grayscale image
+
+1. Determine TGA 1 or 2 format. Last 26 bytes of the file. If image data (TGA
+1), if footer (TGA 2).
+
+2. Bytes 8-23 of the footer ASCII match "TRUEVISION-XFILE".
