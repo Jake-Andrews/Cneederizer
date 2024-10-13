@@ -1,3 +1,53 @@
+8 bit to 32 bit color depth. Alpha channel for transparency. Encoded at
+8,16,24,32 bits per pixel (bpp). Lossless or lossy compression algorithms.
+
+0 - no image data included
+1 - uncompressed, color-mapped images. 
+2 - uncompressed, RGB images. 
+3 - uncompressed, black and white images. 
+9 - runlength encoded color-mapped images.
+10- runlength encoded RGB images.
+11- compressed, black and white images. 
+32- compressed color-mapped data, using huffman, delta, and runlength encoding.
+33- compressed color-mapped data, using huffman, delta, and runlength encoding.
+4-pass quadtree-type process. 
+
+Integers stored in little endian format. 
+
+The last 3 areas, the Developer Area, the Extension Area and the TGA File Footer are new to the file
+specification as of September, 1989. For this reason, images created with software written before
+September, 1989 will probably not contain these three fields. In this document, the TGA File format prior
+to September, 1989 will be referred to as the Original TGA Format while the current TGA File format will
+be referred to as the New TGA Format.
+
+ The original TGA format (v1.0) is structured as follows:
+
+    Header containing information on the image data and palette
+
+    Optional image identification field
+
+    Optional color map
+
+    Bitmap data
+
+The new TGA format (v2.0) contains all of the structures included in the original TGA format and also appends several data structures onto the end of the original TGA format. The following structures may follow the bitmap data:
+
+    Optional developer directory, which may contain a variable number of tags pointing to pieces of information stored in the TGA file
+
+    Optional developer area
+
+    Optional extension area, which contains information typically found in the header of a bitmap file
+
+    Optional color-correction table
+
+    Optional postage-stamp image
+
+    Optional scan-line table
+
+    Footer, which points to the developer and extension areas and identifies the TGA file as a new TGA format file
+
+As you can see, both the new and original TGA format files are identical in structure from the header to the image data area. For this reason, applications that read only original TGA format image files should have no problem reading new TGA format images. All information occurring after the image data may be ignored.
+
 Target only formats 2,3,10,11:
     2 uncompressed true-color image
     3 uncompressed grayscale image
@@ -8,3 +58,6 @@ Target only formats 2,3,10,11:
 1), if footer (TGA 2).
 
 2. Bytes 8-23 of the footer ASCII match "TRUEVISION-XFILE".
+
+Next check the targa format by checking the third byte in the header
+(datatypecode field). 
